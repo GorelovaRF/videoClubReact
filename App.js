@@ -1,21 +1,72 @@
-import { StatusBar } from 'expo-status-bar';
+import 'react-native-gesture-handler';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createStackNavigator } from '@react-navigation/stack';
+import AutorScreen from './screens/AutorScreen';
+import CurriculumScreen from './screens/CurriculumScreen';
+import HomeScreen from './screens/HomeScreen';
+import VideoclubScreen from './screens/VideoclubScreen';
+import DetalleScreen from './screens/DetalleScreen';
 
-export default function App() {
+
+
+
+
+const HomeStack = createStackNavigator();
+
+function HomeStackNavigator() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <HomeStack.Navigator initialRouteName="Home">
+      <HomeStack.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{ title: 'Inicio' , headerShown: false }}
+      />
+      <HomeStack.Screen
+        name="Videoclub"
+        component={VideoclubScreen}
+        options={{ title: 'Videoclub', headerShown: false }}
+      />
+      <HomeStack.Screen
+        name="Curriculum"
+        component={CurriculumScreen}
+        options={{ title: 'Curriculum', headerShown: false }}
+      />
+      <HomeStack.Screen
+        name="Autor"
+        component={AutorScreen}
+        options={{ title: 'Autor', headerShown: false }}
+      />
+       <HomeStack.Screen
+        name="Detalle"
+        component={DetalleScreen}
+        options={{ title: 'Detalle', headerShown: false }}
+      />
+    </HomeStack.Navigator>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const Drawer = createDrawerNavigator();
+
+export default function App(){
+  return(
+    <NavigationContainer>
+      <Drawer.Navigator initialRouteName="Home">
+        <Drawer.Screen 
+        name="Home" 
+        component={HomeStackNavigator} 
+        options={{title: 'Inicio'}}
+        />
+        <Drawer.Screen 
+        name="Autor" 
+        component={AutorScreen} 
+        options={{title: 'Sobre Anastasiia'}}
+        />
+      </Drawer.Navigator>
+    </NavigationContainer>
+    
+  )
+}
+
